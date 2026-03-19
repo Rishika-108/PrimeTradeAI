@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* 60% Dominant Background */
+  --color-brand-bg: #121212;
+  
+  /* 30% Secondary (Cards, Surfaces) */
+  --color-brand-surface: #1E1E1E;
+  --color-brand-surface-hover: #2E2E2E;
+  
+  /* 10% Accents */
+  --color-accent-buy: #10B981;
+  --color-accent-buy-hover: #059669;
+  --color-accent-sell: #EF4444;
+  --color-accent-sell-hover: #DC2626;
+  
+  /* Typography Variables */
+  --color-text-primary: #F9FAFB;
+  --color-text-secondary: #9CA3AF;
+  
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  body {
+    background-color: var(--color-brand-bg);
+    color: var(--color-text-primary);
+    line-height: 1.5; /* Rule requirement for body */
+    margin: 0;
+    min-height: 100vh;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.25; /* Rule requirement for Headers */
+    font-weight: 600;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility container-padding {
+  /* Enforces 16px to 20px consistent standard screen margins */
+  padding-left: 1rem;
+  padding-right: 1rem;
+  @media (min-width: 768px) {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 }

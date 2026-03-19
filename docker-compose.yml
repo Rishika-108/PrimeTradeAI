@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      # Targets internal docker network
+      - MONGODB_URI=mongodb://mongo:27017/primetrade
+      - JWT_SECRET=super_secret_docker_compose_jwt_key
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - primetrade_net
+
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - primetrade_net
+
+  redis:
+    image: redis:7.0-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - primetrade_net
+
+volumes:
+  mongo_data:
+
+networks:
+  primetrade_net:
+    driver: bridge
